@@ -1,4 +1,7 @@
 import express, { Application, Request, Response } from "express";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app: Application = express();
 const port = 5000;
@@ -11,7 +14,7 @@ app.get(
     "/",
     async (req: Request, res: Response): Promise<Response> => {
         return res.status(200).send({
-            message: "Hello World!",
+            message: "Hello development",
         });
     }
 );
