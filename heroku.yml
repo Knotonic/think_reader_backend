@@ -2,4 +2,4 @@ build:
    docker:
       web: Dockerfile
 run:
-   web: docker run -d -p 5000:5000 thinkreaderbackend
+   web: docker run -d -p 5000:5000 exporte
