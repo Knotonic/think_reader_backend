@@ -2,4 +2,4 @@ build:
    docker:
       web: Dockerfile
 run:
-   npm start
+   web: docker run -d -p 5000:5000 thinkreaderbackend
