@@ -10,6 +10,7 @@ import mainRoute from './routes/main_route'
 
 import verifyToken from "./helpers/verify_token"
 import * as dotenv from "dotenv";
+import moment, { utc } from 'moment';
 dotenv.config();
 
 
@@ -30,18 +31,24 @@ console.log(process.env.DB_USERNAME);
 console.log(process.env.DB_DATABASE)
 
 app.get("/", async(req, res) => {
+  const data=await db.query("alter table users alter column created_at drop default",[])
+  return res.send(data);
  
-  const text = 'SELECT * FROM users'
-  // const values = ['BASE TABLE', 'public'];
-    try {
-        const response = await db.query(text)
-      
-        const {rows}=response;
-        return res.send({data:rows});
-      
-      } catch (err:any) {
-        console.log(err.stack)
-      }
+})
+
+app.post("/", async(req, res) => {
+ 
+  try {
+    const otp = await db.query('insert into otp (otp,email_id,type,created_at) values ($1,$2,$3,$4)  RETURNING *', ["1234", req.query.email, 0,new Date()])
+    console.log("otp data");
+    console.log(otp);
+
+    return res.send(otp.rows);
+
+  } catch (error) {
+    throw error
+  }
+  
 })
 app.use("/api/v1", mainRoute);
 

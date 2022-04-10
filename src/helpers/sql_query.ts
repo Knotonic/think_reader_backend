@@ -1,0 +1,1 @@
+const checkUserAlreadyExistsQuery='select * from users where email_id=$1 limit 1'

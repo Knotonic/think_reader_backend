@@ -3,20 +3,20 @@ import express from "express"
 const router=express.Router()
 import { signUpService,signInService, verifyRefreshToken} from "../services/auth";
 import { celebrate, Joi, errors, Segments } from 'celebrate';
-import {userSignupSchema,refreshTokenSchema} from "../helpers/validation_schema"
-
-router.get("/",(req,res)=>{
-  res.send({ msg: "working" });
-})
+import {emailCheckSchema,refreshTokenSchema,submitOtpSchema} from "../helpers/validation_schema"
+import {sendotp,submitOtpService} from "../services/signup"
 
 
 
 
-  // router.post("/signIn",celebrate({
-  //   [Segments.BODY]: userSignupSchema,
-  // }),signInService)
 
+  router.post("/getotp",celebrate({
+    [Segments.BODY]: emailCheckSchema,
+  }),sendotp)
 
+  router.post("/submitotp",celebrate({
+    [Segments.BODY]: submitOtpSchema,
+  }),submitOtpService)
 
   // router.post("/refreshtoken",celebrate({
   //   [Segments.BODY]: refreshTokenSchema,

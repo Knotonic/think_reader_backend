@@ -23,5 +23,5 @@ import {Pool} from 'pg'
 
 
 export default {
-  query: (text:any) => pool.query(text),
+  query: (text:any,value:any) => pool.query(text,value),
 }

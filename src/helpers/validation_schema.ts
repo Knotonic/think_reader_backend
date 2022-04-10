@@ -2,16 +2,18 @@
 import { Joi } from 'celebrate';
 
 
-const userSignupSchema=Joi.object({
-    email:Joi.string().min(8).required(),
-    password:Joi.string().min(8).required()
+const emailCheckSchema=Joi.object({
+    email:Joi.string().email().required(),
+})
+const submitOtpSchema=Joi.object({
+    email:Joi.string().email().required(),
+    otp:Joi.string().required().length(6)
 })
 
 
 const refreshTokenSchema=Joi.object({
     token:Joi.string().required(),
-  
 })
 
 
-export  {userSignupSchema,refreshTokenSchema}
+export  {emailCheckSchema,refreshTokenSchema,submitOtpSchema}
