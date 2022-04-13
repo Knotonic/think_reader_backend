@@ -18,7 +18,7 @@ const sendotp = async (req: any, res: any, next: any) => {
             return res.send({ data: otpdata });
         }
 
-        return res.send({ data: checkotpdata });
+        return res.status(200).send({ data: checkotpdata });
 
 
     } catch (error) {
@@ -43,7 +43,7 @@ const submitOtpService = async (req: any, res: any, next: any) => {
         const createUserdata:any = await createUser(req.body.email);
         const token = await signInaccesstoken(createUserdata[0].id);
         const rtoken = await signrefereshtoken(createUserdata[0].id);
-        return res.status(200).send({data: createUserdata , "token": token, "refereshtoken": rtoken });
+        return res.status(200).send({"token": token, "refereshtoken": rtoken });
      
 
 

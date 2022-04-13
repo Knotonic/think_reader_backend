@@ -23,7 +23,7 @@ jwt.verify(token, accessKey,(err:any,payload:any)=>{
     }
  }
 
-    req.payload=payload
+    req.user_id=payload
 
     next()
 })
