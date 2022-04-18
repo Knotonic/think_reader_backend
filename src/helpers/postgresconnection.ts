@@ -1,5 +1,6 @@
+import e from 'express';
 import {Pool} from 'pg'
-
+import{CreateQuery} from "./sql_query"
      // REPLACE WITH YOUR DB NAME
 
      const pool = new Pool({
@@ -16,8 +17,34 @@ import {Pool} from 'pg'
     })
 
   
-    pool.connect().then(()=>{
-      console.log("database connected succefully");
+    pool.connect().then(async()=>{
+   try {
+     //users
+const usertable=
+    await pool.query(CreateQuery.createUsersTable);
+    console.log({"usertable":usertable.rows});
+    //interest
+  const interest=  await pool.query(CreateQuery.createInterestTable);
+  console.log({"interesttable":interest.rows});
+    //otp
+ const otp=   await pool.query(CreateQuery.createOtpTable);
+ console.log({"otptable":otp.rows});
+    //category
+  const category=  await pool.query(CreateQuery.createCategoryTable);
+    console.log({"categorytable":category.rows});
+    //hashtag
+  const hashtag=  await pool.query(CreateQuery.createHashtagTable);
+    console.log({"hastagtable":hashtag.rows});
+    //post
+  const post=  await pool.query(CreateQuery.createPostTable);
+  console.log({"posttable":post.rows});
+    //views
+   const views= await pool.query(CreateQuery.createViewsTable);
+   console.log({"viewstable":views.rows});
+   } catch (error) {
+     console.log(error);
+     throw e;
+   }
     }).catch((e)=>console.log(e));  
  
 
