@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken"
 import createError from "http-errors"
 
 const verifytoken=(req:any,res:any,next:any)=>{
+   console.log(req.headers);
 if(!req.headers["authorization"]) {
    return next(new createError.Unauthorized("token varala"))
 }
@@ -23,7 +24,7 @@ jwt.verify(token, accessKey,(err:any,payload:any)=>{
     }
  }
 
-    req.user_id=payload
+    req.user_id=payload.aud;
 
     next()
 })

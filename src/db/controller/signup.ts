@@ -50,6 +50,18 @@ const checkOtp = async (email: string) => {
   }
 }
 
+const checkSuccessOtp = async (email: string) => {
+  try {
+
+    const otp = await db.query('select * from otp where email_id=$1 order by created_at DESC limit 1', [email])
+    return otp.rows;
+
+  } catch (error) {
+    throw error
+  }
+}
+
+
 const addOtp = async (email: string) => {
   console.log("checkotp");
   console.log(email);
@@ -91,15 +103,18 @@ const verifyOtp = async (email: string, otpdata: string) => {
     throw error
   }
 }
-const createUser = async (email:string) => {
+
+
+const createUser = async (email:string,password:string) => {
 
   try {
-    const user = await db.query('insert into users (email_id,auth_method,created_at) values ($1,$2,$3)  RETURNING *', [ email, 1,new Date()])
+    const user = await db.query('insert into users (email_id,auth_method,created_at,password) values ($1,$2,$3,$4)  RETURNING *', [ email, 1,new Date(),password])
     return user.rows;
   } catch (error) {
     throw error
   }
 }
+
 export {
-  checkUserAlreadyExist, checkOtp, addOtp,verifyOtp,createUser
+  checkUserAlreadyExist, checkOtp, addOtp,verifyOtp,createUser,checkSuccessOtp
 }

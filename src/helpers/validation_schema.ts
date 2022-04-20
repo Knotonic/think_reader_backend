@@ -15,7 +15,7 @@ const signinwithemailSchema=Joi.object({
     password:Joi.string().required()
 })
 const refreshTokenSchema=Joi.object({
-    token:Joi.string().required(),
+    password:Joi.string().required(),
 })
 
 

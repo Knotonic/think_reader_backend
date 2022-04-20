@@ -12,7 +12,7 @@ const signInaccesstoken = (id:any) => {
         }
         const secrect:string|any = process.env.ACCESS_SECRETKEY;
 
-        const option = { expiresIn: '300s', issuer: "thinkreaders.com", audience:id.toString() }
+        const option = { expiresIn: '1200s', issuer: "thinkreaders.com", audience:id.toString() }
 
         jwt.sign(payload, secrect, option, (err, token) => {
             if (err){

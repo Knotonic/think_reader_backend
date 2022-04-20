@@ -22,9 +22,17 @@ const addcategory = async (data:any) => {
 }
 
 
-const updatecategory = async (data:any) => {
+const updatecategory = async (values:any,id:any) => {
+  let columns = Object.keys(values);
+  let params = [id];
+  let query = "UPDATE category SET ";
+  for(let i = 0; i < columns.length; i++) {
+    query = `${query}${columns[i]} = $${params.length + 1},`
+    params.push(values[columns[i]]);
+  }
+  query = `${query.substring(0, query.length-1)} WHERE id = $1 RETURNING *`
     try {
-      const category = await db.query('insert into category (title,image,created_at,created_by) values ($1,$2,$3,$4)  RETURNING *', [data.title,data.image, data.created_by,new Date()])
+      const category = await db.query(query, params)
       return category.rows;
     } catch (error) {
       throw error

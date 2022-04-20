@@ -5,18 +5,18 @@ const router=express.Router()
 import { celebrate, Joi, errors, Segments } from 'celebrate';
 import {postSchema} from "../helpers/validation_schema"
 import {addpostService,deletepostService,getpostService,updatepostService} from "../services/post"
+import verifytoken from "../helpers/verify_token"
 
 
 
 
-
-  router.get("/",getpostService)
+  router.get("/",verifytoken,getpostService)
   router.post("/",celebrate({
     [Segments.BODY]:postSchema,
-  }),addpostService)
+  }),verifytoken,addpostService)
   router.put("/:id",celebrate({
     [Segments.BODY]:postSchema,
-  }),updatepostService)
-  router.delete("/:id",deletepostService)
+  }),verifytoken,updatepostService)
+  router.delete("/:id",verifytoken,deletepostService)
 
 export  default router;
